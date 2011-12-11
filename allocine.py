@@ -52,7 +52,7 @@ class Allocine:
         Takes a movie object from movie_detail or from search_movie.
         """
         out = []
-        if 'statistics' in film:
+        if 'statistics' in film and 'userRating' in film['statistics']:
             rating = int(film['statistics']['userRating'])
             out.append('[%s]' % (rating * '*' + (5 - rating) * ' '))
         else:
@@ -61,7 +61,10 @@ class Allocine:
             out.append('%s (%s)' % (film['title'], film['originalTitle']))
         else:
             out.append(film['originalTitle'])
-        out.append(str(film['productionYear']))
+        if 'productionYear' in film:
+            out.append(str(film['productionYear']))
+        if 'release' in film and 'releaseDate' in film['release']:
+            out.append('Sortie: ' + film['release']['releaseDate'])
         if 'genre'in film:
             out.append('\nGenre: ' + ', '.join(genre['$'] for genre in film['genre']))
         if 'synopsis' in film:
@@ -81,11 +84,14 @@ class Allocine:
         """
         Search a movie, returns an array of movies.
         """
-        params = {'q': search, 'json': 1, 'partner': 3}
+        params = {'q': isinstance(search, unicode) and search.encode('utf-8') or search, 'json': 1, 'partner': 3}
         result_json = urllib.urlopen(self.movie_search_url
                                      + urllib.urlencode(params)).read()
-        results = json.loads(result_json)['feed']
-        return results['movie'] if 'movie' in results else []
+        results = json.loads(result_json)
+        if 'feed' in results and 'movie' in results['feed']:
+            return results['feed']['movie']
+        else:
+            return []
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
