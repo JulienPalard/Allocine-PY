@@ -1,35 +1,4 @@
-Can be used from command line :
+Allociné closed its API, at least, the one I used.
 
-./allocine.py las vegas
-[**** ] Las Vegas parano (Fear and Loathing in Las Vegas) 1998
-[**   ] Lune de miel à Las Vegas (Honeymoon in Vegas) 1992
-[  ?  ] The Virgin of Las Vegas 2009
-...
-./allocine.py las vegas parano
-[**** ] Las Vegas parano (Fear and Loathing in Las Vegas) 1998
-Genre: Comédie dramatique, Aventure
-Synopsis: A travers l'épopée à la fois comique et horrible vers Las Vegas du journaliste Raoul Duke et de son énorme avocat, le Dr. Gonzo, évocation caustique et brillante de l'année 1971 aux Etats-Unis, pendant laquelle les espoirs des années soixante et le fameux rêve américain furent balayés pour laisser la place à un cynisme plus politiquement correct.
-
-
-Or you can 'import allocine' and use the class Allocine :
->>> import allocine
->>> a = allocine.Allocine()
->>> vegas = a.search_movie('las vegas')
->>> len(vegas)
-10
->>> a.pretty_print_movie(vegas[0])
-[**** ] Las Vegas parano (Fear and Loathing in Las Vegas) 1998
->>> vegas
-[
-    {u'code': 18457,
-     u'castMember': [{u'person': u'Terry Gilliam', u'activity': {u'code': 8002}}, ...],
-     u'title': u'Las Vegas parano',
-     u'poster': {u'href': u'http://images.allocine.fr/medias/04/21/07/042107_af.jpg'},
-     u'originalTitle': u'Fear and Loathing in Las Vegas',
-     u'statistics': {u'userRating': 4},
-     u'productionYear': 1998,
-     u'release': {u'releaseDate': u'1998-08-19'},
-     u'link': [{u'href': u'http://www.allocine.fr/film/fichefilm_gen_cfilm=18457.html', u'rel': u'aco:more'}]
-    },
-...
-]
+So nothing longer works here, you better get your informations from
+dbpedia, imdb, or wikipedia.
